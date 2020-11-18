@@ -21,6 +21,8 @@ module emu
 	//Multiple resolutions are supported using different CE_PIXEL rates.
 	//Must be based on CLK_VIDEO
 	output        CE_PIXEL,
+	
+	output	      clk_sc,
 
 	//Video aspect ratio for HDMI. Most retro systems have ratio 4:3.
 	output [11:0] VIDEO_ARX,
@@ -383,6 +385,7 @@ pll pll
 	.outclk_0(clk85),
 	.outclk_1(CLK_VIDEO),
 	.outclk_2(clk),
+	.outclk_3(clk_sc),
 //	.reconfig_to_pll(reconfig_to_pll),
 //	.reconfig_from_pll(reconfig_from_pll),
 	.locked(clock_locked)
