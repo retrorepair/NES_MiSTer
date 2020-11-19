@@ -168,8 +168,8 @@ wire [7:0] cpu_dout;
 reg odd_or_even = 1; // 1 == odd, 0 == even
 
 // Clock Dividers
-localparam div_cpu_n = 5'd12;
-localparam div_ppu_n = 3'd4;
+localparam div_cpu_n = 5'd16; // /16 for PAL, /12 for NTSC
+localparam div_ppu_n = 3'd5; // /5 for PAL, /4 for NTSC
 
 // Counters
 reg [4:0] div_cpu = 5'd1;
@@ -226,9 +226,9 @@ always @(posedge clk) begin
 			ppu_tick <= ppu_tick + 1'b1;
 	end
 
-	// Add one extra PPU tick every 5 cpu cycles for PAL.
-	if (cpu_ce && sys_type[0])
-		cpu_tick_count <= cpu_tick_count[2] ? 3'd0 : cpu_tick_count + 1'b1;
+//	// Add one extra PPU tick every 5 cpu cycles for PAL. (commented out as division hard set above)
+//	if (cpu_ce && sys_type[0])
+//		cpu_tick_count <= cpu_tick_count[2] ? 3'd0 : cpu_tick_count + 1'b1;
 
 	// SDRAM Clock
 	div_sys <= div_sys + 1'b1;
